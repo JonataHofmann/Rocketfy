@@ -58,18 +58,28 @@ export const Label = styled.span`
     }
 `;
 
+export const LabelCreate = styled.span`
+    color: rgb(0, 0, 0, 0.2);
+    font-size: 18px;
+    font-weight: 700;
+`;
+
 export const LastCard = styled.div`
-    /* position: relative; */
-    background: #fff;
+    position: relative;
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 15px;
     height: 100%;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
 
-    /* position: relative; */
-    /* top: 0; */
-    /* bottom: 0px; */
+    border: 2px dashed rgb(0, 0, 0, 0.2);
+
+    /* background: #; */
+    /* opacity: 0.2; */
 
     /* box-shadow: 0 1px 4px 0 rgba(192, 208, 203, 0.8); */
-    /* cursor: er; */
+    cursor: pointer;
 `;

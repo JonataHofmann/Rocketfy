@@ -11,7 +11,7 @@ const data = loadLists();
 function Board() {
     const [lists, setLists] = useState(data);
 
-    function move(fromList, toList, from, to) {
+    async function move(fromList, toList, from, to) {
         setLists(
             produce(lists, (draft) => {
                 const dragged = draft[fromList].cards[from];
@@ -22,8 +22,17 @@ function Board() {
             })
         );
     }
+
+    async function add(item, fromList) {
+        setLists(
+            produce(lists, (draft) => {
+                draft[fromList].cards.push(item);
+            })
+        );
+    }
+
     return (
-        <BoardContext.Provider value={{ lists, move }}>
+        <BoardContext.Provider value={{ lists, move, add }}>
             <Container>
                 {lists.map((item, index) => (
                     <List key={item.title} index={index} data={item} />

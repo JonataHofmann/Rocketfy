@@ -1,14 +1,28 @@
 import React, { useRef, useContext } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { Container, LastCard, Label } from "./styles";
+import { Container, LastCard, Label, LabelCreate } from "./styles";
 import BoardContext from "../Board/context";
 
-function Card({ data, index, listIndex, isLast }) {
+function Card({ data, index, listIndex, isEmptyArea }) {
     const ref = useRef();
-    const { move } = useContext(BoardContext);
+    const { move, add } = useContext(BoardContext);
+
+    function handleAdd() {
+        const newItem = {
+            id: 999,
+            content: "novo item",
+            labels: [{ color: "#7159c1", title: "Label 1" }],
+            user:
+                "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png",
+        };
+        add(newItem, listIndex);
+    }
 
     const [{ isDragging }, dragRef] = useDrag({
-        item: { type: "CARD", index, listIndex },
+        item: { type: "CARD", index, listIndex, isEmptyArea },
+        canDrag: (monitor) => {
+            return !isEmptyArea;
+        },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -16,7 +30,7 @@ function Card({ data, index, listIndex, isLast }) {
 
     const [, dropRef] = useDrop({
         accept: "CARD",
-        hover(item, monitor) {
+        async drop(item, monitor) {
             const draggedListIndex = item.listIndex;
             const targetListIndex = listIndex;
 
@@ -29,44 +43,62 @@ function Card({ data, index, listIndex, isLast }) {
             ) {
                 return;
             }
-
             const targetSize = ref.current.getBoundingClientRect();
-            const targetCenter = (targetSize.bottom - targetSize.top) / 2;
+            let targetCenter = (targetSize.bottom - targetSize.top) / 2;
 
             const draggedOffset = monitor.getClientOffset();
             const draggedTop = draggedOffset.y - targetSize.top;
 
-            if (draggedIndex < targetIndex && draggedTop < targetCenter) {
+            if (
+                draggedIndex < targetIndex &&
+                draggedTop < targetCenter &&
+                draggedListIndex === targetListIndex
+            ) {
                 return;
             }
 
-            if (draggedIndex > targetIndex && draggedTop > targetCenter) {
+            if (
+                draggedIndex > targetIndex &&
+                draggedTop > targetCenter &&
+                draggedListIndex === targetListIndex
+            ) {
                 return;
             }
 
-            move(draggedListIndex, targetListIndex, draggedIndex, targetIndex);
+            await move(
+                draggedListIndex,
+                targetListIndex,
+                draggedIndex,
+                targetIndex
+            );
 
             item.index = targetIndex;
             item.listIndex = targetListIndex;
         },
     });
     dragRef(dropRef(ref));
-    return data ? (
-        <Container ref={ref} isDragging={isDragging} isLast={isLast}>
-            <>
-                <header>
-                    {data.labels.map((label) => (
-                        <Label key={label.color} color={label.color}>
-                            {label.title}
-                        </Label>
-                    ))}
-                </header>
-                <p>{data.content}</p>
-                {data.user && <img src={data.user} alt="" />}
-            </>
+
+    return !isEmptyArea ? (
+        <Container ref={ref} isDragging={isDragging}>
+            {data && (
+                <>
+                    <header>
+                        {data.labels &&
+                            data.labels.map((label) => (
+                                <Label key={label.color} color={label.color}>
+                                    {label.title}
+                                </Label>
+                            ))}
+                    </header>
+                    <p>{data.content}</p>
+                    {data.user && <img src={data.user} alt="" />}
+                </>
+            )}
         </Container>
     ) : (
-        <LastCard>teste</LastCard>
+        <LastCard ref={ref} isDragging={isDragging} onClick={handleAdd}>
+            <LabelCreate>Adicionar</LabelCreate>
+        </LastCard>
     );
 }
 

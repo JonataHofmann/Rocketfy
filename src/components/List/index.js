@@ -18,12 +18,18 @@ function List({ data, index: listIndex }) {
             <ul>
                 {data.cards.map((card, index) => (
                     <Card
-                        // key={card.id}
+                        key={index}
                         index={index}
                         listIndex={listIndex}
                         data={card}
+                        isEmptyArea={false}
                     />
                 ))}
+                <Card
+                    index={data.cards.length}
+                    listIndex={listIndex}
+                    isEmptyArea
+                />
             </ul>
         </Container>
     );

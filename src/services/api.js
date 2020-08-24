@@ -46,15 +46,7 @@ export function loadLists() {
         {
             title: "Fazendo",
             creatable: false,
-            cards: [
-                {
-                    id: 6,
-                    content: "Recriando clone do Pipefy",
-                    labels: [],
-                    user:
-                        "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png",
-                },
-            ],
+            cards: [],
         },
         {
             title: "Pausado",

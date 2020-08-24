@@ -5,10 +5,22 @@ export const Container = styled.div`
     height: 100%;
     flex: 1 0 320px;
     opacity: ${(props) => (props.done ? 0.6 : 1)};
+    overflow-y: scroll;
+    /* margin-right: 2px; */
+
     & + div {
         border-left: 1px solid rgba(0, 0, 0, 0.1);
     }
+    &::-webkit-scrollbar {
+        width: 6px;
+        /* background-color: rgba(0, 0, 0, 0.1); */
+    }
 
+    &::-webkit-scrollbar-thumb {
+        width: 6px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
     header {
         display: flex;
         justify-content: space-between;
@@ -30,6 +42,10 @@ export const Container = styled.div`
         }
     }
     ul {
+        height: calc(100% - 80px);
+        flex: 1;
+        flex-direction: column;
+        display: flex;
         margin-top: 30px;
     }
 `;

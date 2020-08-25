@@ -5,7 +5,7 @@ import BoardContext from "../Board/context";
 
 function Card({ data, index, listIndex, isEmptyArea }) {
     const ref = useRef();
-    const { move, addCard } = useContext(BoardContext);
+    const { moveCard, addCard } = useContext(BoardContext);
 
     function handleAdd() {
         const newItem = {
@@ -65,7 +65,7 @@ function Card({ data, index, listIndex, isEmptyArea }) {
                 return;
             }
 
-            await move(
+            await moveCard(
                 draggedListIndex,
                 targetListIndex,
                 draggedIndex,

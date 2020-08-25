@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
     padding: 0 15px;
@@ -6,7 +6,8 @@ export const Container = styled.div`
     flex: 1 0 320px;
     opacity: ${(props) => (props.done ? 0.6 : 1)};
     overflow-y: scroll;
-    /* margin-right: 2px; */
+    margin-right: 5px;
+    margin-left: 5px;
 
     & + div {
         border-left: 1px solid rgba(0, 0, 0, 0.1);
@@ -28,32 +29,39 @@ export const Container = styled.div`
         display: flex;
         margin-top: 30px;
     }
+
+    ${(props) =>
+        props.isDragging &&
+        css`
+            border: 2px dashed rgba(0, 0, 0, 0.2) !important;
+            padding-top: 31px;
+            border-radius: 5px;
+
+            background: transparent;
+            box-shadow: none;
+            cursor: grabbing;
+
+            ul,
+            div,
+            header {
+                opacity: 0;
+            }
+        `}
 `;
 
 export const HeaderList = styled.header`
     display: flex;
-    justify-content: space-between;
+    flex: 1;
+
     align-items: center;
+    max-width: 90%;
     height: 42px;
     border: ${(props) => !props.readOnly && "2px dashed rgb(0, 0, 0, 0.2)"};
     padding: 0px 10px;
-    h2 {
-        font-weight: 500;
-        font-size: 16px;
-        padding: 0 10px;
-    }
-
-    button {
-        width: 42px;
-        height: 42px;
-        border-radius: 18px;
-        background: #3b5bfd;
-        border: 0;
-        cursor: pointer;
-    }
 `;
 export const Input = styled.input`
     background: transparent;
+
     display: flex;
     flex: 1;
 
@@ -63,4 +71,29 @@ export const Input = styled.input`
     font-size: 19px;
 
     border: 0;
+    cursor: pointer;
+`;
+
+export const HeaderContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-wrap: break-word;
+    word-break: break-all;
+    /* height: 80px; */
+`;
+
+export const Actions = styled.div`
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+`;
+export const ActionsInvisible = styled.div`
+    display: flex;
+
+    opacity: ${(props) => (props.show ? 1 : 0)};
+    /* width: ${(props) => (props.show ? 50 : 0)}px; */
+    /* visibility: hidden; */
+    /* width: 0; */
+    transition: opacity 0.3s;
 `;

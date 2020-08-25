@@ -5,8 +5,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Header from "./components/Header";
 import Board from "./components/Board";
 
-import Examples from "./components/Modal_ex";
-
 function App() {
     //  return <Examples />;
     return (

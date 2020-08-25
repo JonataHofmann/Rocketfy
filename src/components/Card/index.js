@@ -5,7 +5,7 @@ import BoardContext from "../Board/context";
 
 function Card({ data, index, listIndex, isEmptyArea }) {
     const ref = useRef();
-    const { move, add } = useContext(BoardContext);
+    const { move, addCard } = useContext(BoardContext);
 
     function handleAdd() {
         const newItem = {
@@ -15,7 +15,7 @@ function Card({ data, index, listIndex, isEmptyArea }) {
             user:
                 "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png",
         };
-        add(newItem, listIndex);
+        addCard(newItem, listIndex);
     }
 
     const [{ isDragging }, dragRef] = useDrag({
@@ -97,7 +97,7 @@ function Card({ data, index, listIndex, isEmptyArea }) {
         </Container>
     ) : (
         <LastCard ref={ref} isDragging={isDragging} onClick={handleAdd}>
-            <LabelCreate>Adicionar</LabelCreate>
+            <LabelCreate>Adicionar Card</LabelCreate>
         </LastCard>
     );
 }

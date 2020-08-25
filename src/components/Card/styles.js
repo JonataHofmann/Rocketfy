@@ -12,7 +12,7 @@ export const Container = styled.div`
 
     header {
         position: absolute;
-        top: -22px;
+        top: -10px;
         left: 15px;
     }
     p {
@@ -74,12 +74,12 @@ export const LastCard = styled.div`
     flex: 1;
     align-items: center;
     justify-content: center;
-
     border: 2px dashed rgb(0, 0, 0, 0.2);
+    transition: opacity 0.2s;
+    opacity: 0;
+    &:hover {
+        opacity: 1;
+    }
 
-    /* background: #; */
-    /* opacity: 0.2; */
-
-    /* box-shadow: 0 1px 4px 0 rgba(192, 208, 203, 0.8); */
     cursor: pointer;
 `;

@@ -3,7 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import Card from "../Card";
 
 import BoardContext from "../Board/context";
-import { MdMoreVert, MdDelete, MdEdit } from "react-icons/md";
+import { MdMoreVert, MdDelete } from "react-icons/md";
 import {
     Container,
     HeaderContainer,
@@ -12,7 +12,6 @@ import {
     Actions,
     ActionsInvisible,
 } from "./styles";
-import DropDown from "../DropDown/index";
 
 function List({ data, index: listIndex }) {
     const ref = useRef();
@@ -106,12 +105,6 @@ function List({ data, index: listIndex }) {
                 </HeaderList>
                 <Actions>
                     <ActionsInvisible show={isActionsVisible}>
-                        {/* <MdEdit
-                            style={{ cursor: "pointer" }}
-                            size={24}
-                            color="#00000033"
-                            onClick={hanldeConfirmChangeName}
-                        /> */}
                         <MdDelete
                             style={{ cursor: "pointer" }}
                             size={24}
